@@ -1,0 +1,27 @@
+#root {
+  min-height: 100vh;
+}
+#root .ant-layout:first-child {
+  min-height: 100vh;
+  position: relative;
+}
+
+.ant-form.userLogin {
+  background-color: #fff;
+  width: 50%;
+  padding: 5%;
+  margin: 36px auto;
+}
+.login-form-button {
+  margin-right: 10px;
+}
+.form-login-submit-formitem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.form-login-pwd .ant-form-item-extra {
+  text-align: right;
+  font-size: smaller;
+  margin-top: 5px;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default (props) => {
-  return <div>logger</div>;
+  return <div>find password</div>;
 };

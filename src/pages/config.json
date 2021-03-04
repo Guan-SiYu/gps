@@ -1,0 +1,8 @@
+{
+  "apiEndpoint": "//gps.dbjtech.com",
+  "device": {
+    "find": "/gpsdebug",
+    "verdev": "/decive/verdev",
+    "@output": "/device/batch/select/output"
+  }
+}

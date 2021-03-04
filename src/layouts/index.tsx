@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Layout, Menu } from 'antd';
 import {
   MailOutlined,
@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 const { SubMenu } = Menu;
 import { Link } from 'umi';
-const { Sider, Content, Footer } = Layout;
+const { Footer } = Layout;
 export default (props) => (
   <Layout>
     <Menu mode="horizontal">
@@ -24,29 +24,12 @@ export default (props) => (
       <Menu.Item key="logger" icon={<SettingOutlined />}>
         <Link to="/logger">logger</Link>
       </Menu.Item>
-      <SubMenu key="SubMenu" icon={<UserOutlined />} title="登录">
-        <Menu.ItemGroup title="Item 1">
-          <Menu.Item key="setting:1">Option 1</Menu.Item>
-          <Menu.Item key="setting:2">Option 2</Menu.Item>
-        </Menu.ItemGroup>
-        <Menu.ItemGroup title="Item 2">
-          <Menu.Item key="setting:3">Option 3</Menu.Item>
-          <Menu.Item key="setting:4">Option 4</Menu.Item>
-        </Menu.ItemGroup>
-      </SubMenu>
+      <Menu.Item key="login" icon={<UserOutlined />}>
+        <Link to="/userlogin/login">login</Link>
+      </Menu.Item>
     </Menu>
     <Layout className="site-layout">
-      <Content
-        className="site-layout-background"
-        style={{
-          // margin: '24px 16px',
-          padding: 24,
-          minHeight: '98vh',
-          margin: '0 auto',
-        }}
-      >
-        {props.children}
-      </Content>
+      {props.children}
       <Footer></Footer>
     </Layout>
   </Layout>
