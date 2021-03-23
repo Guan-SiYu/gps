@@ -1,15 +1,33 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, Layout, Space, Card } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'umi';
-function page_login(props) {
+import { connect } from 'dva';
+import http from '../../services/http';
+import jwtDecode from 'jwt-decode';
+import config from '../config';
+function LogInCpt({ dispatch }) {
   return (
     <Form
       name="userlogin"
       className="userLogin"
       initialValues={{ remember: true }}
-      onFinish={(values: any) => {
-        console.log('Received values of form: ', values);
+      onFinish={async (values) => {
+        try {
+          const { data: jwt } = await http.post(
+            config.apiEndpoint + config['userlogin']['login'],
+            JSON.stringify(values),
+          );
+          await localStorage.setItem('token', jwt);
+          const curjwt = localStorage.getItem('token'),
+            curuser = jwtDecode(curjwt);
+          await dispatch({ type: 'user/set_curuser', payload: curuser });
+        } catch (ex) {
+          if (ex.response && ex.response.status === 400) {
+            console.log(ex.response);
+            alert(ex.response.data);
+          }
+        }
       }}
     >
       <Form.Item
@@ -50,4 +68,6 @@ function page_login(props) {
   );
 }
 
-export default page_login;
+export default connect((paraIn) => {
+  return { curuser: paraIn['user'] };
+})(LogInCpt);

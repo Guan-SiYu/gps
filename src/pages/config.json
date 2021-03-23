@@ -1,8 +1,9 @@
 {
-  "apiEndpoint": "//gps.dbjtech.com",
-  "device": {
-    "find": "/gpsdebug",
-    "verdev": "/decive/verdev",
-    "@output": "/device/batch/select/output"
-  }
+  "apiEndpoint": "http://localhost:3000",
+  "userlogin": {
+    "login": "/gps/login",
+    "register": "/gps/newuser",
+    "findpwd": "/gpd/findpwd"
+  },
+  "trace": "/gps/trace"
 }
