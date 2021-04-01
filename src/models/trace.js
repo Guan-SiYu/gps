@@ -1,4 +1,25 @@
+import _ from 'lodash';
 import io from 'socket.io-client';
+
+// type MiscType = {
+//   serial: Number
+//   speed: Number
+//   course: Number
+//   battery: Number
+//   version: String
+//   gsm: Number
+// }
+
+// type MessageType = {
+//   alt: Number
+//   lat: Number
+//   lon: Number
+//   misc: MiscType
+//   mobile: String
+//   packege_time: Number
+//   satellites: String
+//   timestamp: Number
+// }
 
 export default {
   namespace: 'trace',
@@ -10,6 +31,7 @@ export default {
     },
     reload: true,
     traces: [], //
+    throttledTraces: [],
   },
   reducers: {
     set_reload(state, { payload: obj }) {
@@ -44,12 +66,19 @@ export default {
     set_register(state, { payload: register }) {
       return { ...state, register };
     },
+    setThrottledTraces(state) {
+      return {
+        ...state,
+        throttledTraces: state.traces,
+      };
+    },
   },
 
   subscriptions: {
     setupHistory({ dispatch, history }) {
+      const paths = ['/trace', '/heatmap'];
       history.listen((location) => {
-        if (location.pathname.includes('/trace')) {
+        if (paths.includes(location.pathname)) {
           console.log('尝试连接Websocket服务端');
 
           const socket = io('ws://172.16.2.52:28009', {
@@ -60,11 +89,15 @@ export default {
             },
           });
 
+          const throttled = _.throttle(() => {
+            dispatch({ type: 'setThrottledTraces' });
+          }, 5000); // 隔一段时间才更新一次 throttledTraces
           socket.on('api/resp', (msg) => {
             const obj = JSON.parse(msg.data);
             obj.packege_time = new Date().getTime();
             console.log('obj=>', obj);
             dispatch({ type: 'set_reload', payload: obj });
+            throttled();
           });
         }
       });

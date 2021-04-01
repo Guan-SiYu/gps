@@ -47,6 +47,11 @@ export default defineConfig({
             },
           ],
         },
+        {
+          path: '/heatmap',
+          component: '@/pages/heatmap',
+          exact: true,
+        },
       ],
     },
   ],

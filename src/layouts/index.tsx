@@ -48,6 +48,9 @@ const LayoutPage = ({ children, dispatch, curuser }) => {
             <Link to="/userlogin/login">登录</Link>
           </Menu.Item>
         )}
+        <Menu.Item key="heatmap">
+          <Link to="/heatmap">heatmap</Link>
+        </Menu.Item>
       </Menu>
       <Layout className="site-layout">
         {children}

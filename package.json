@@ -29,6 +29,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "react-amap": "^1.2.8",
+    "react-amap-plugin-heatmap": "^0.0.7",
     "socket.io-client": "^2.0.2",
     "umi": "^3.3.9"
   },
