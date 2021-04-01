@@ -1,30 +1,43 @@
+import moment from 'moment';
+
 export const staticColumns = [
   {
     title: 'Packet Time',
     fixed: 'left',
-    dataIndex: 'packet_time',
+    render: (_, { package_time }) => moment(package_time).format(),
   },
   {
     title: 'GPS Time',
-    dataIndex: 'gps_time',
+    render: (_, { timestamp }) => moment(timestamp).format(),
   },
   {
-    title: 'Lon',
-    dataIndex: 'lon',
+    title: 'Location',
+    render: (_, { lat, lon, alt }) => `${lon}，${lat}，${alt}`,
   },
   {
-    title: 'Lat',
-    dataIndex: 'lat',
-  },
-  {
-    title: 'Alt',
-    dataIndex: 'alt',
+    title: 'Satellites',
+    render: (_, { satellites }) =>
+      satellites.replace(/(?<=:)\d+/g, (str) => `(${str})`),
   },
   {
     title: 'SNR Avg',
-    dataIndex: 'snr_avg',
+    dataIndex: 'avg',
+  },
+  {
+    title: 'SNR Desc',
+    dataIndex: 'desc',
+  },
+  {
+    title: 'Misc',
+    render(_, { misc }) {
+      const obj = JSON.parse(misc);
+      let str = '';
+      for (let key in obj) str += `${key}:${obj[key]},`;
+      return str.slice(0, -1);
+    },
   },
 ];
+
 export const outputExcel = async (para) => {
   const { uri, payload, tipText } = para;
   try {

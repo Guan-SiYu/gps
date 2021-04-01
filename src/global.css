@@ -25,3 +25,17 @@
   font-size: smaller;
   margin-top: 5px;
 }
+
+.ant-input-group-addon {
+  padding: 0;
+  border: none;
+  background: rgb(24, 144, 255);
+  color: #fff;
+}
+.ant-input-group-addon div {
+  padding: 0 11px;
+}
+.ant-input-group-addon:hover {
+  background: rgba(24, 144, 255, 0.8);
+  cursor: pointer;
+}
